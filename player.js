@@ -10,6 +10,10 @@ function Player () {
     // player color
     this.color = "#ff0000ff"
 
+    // player velocity
+    this.vx = 0;
+    this.vy = 0;
+
     this.draw = function() 
     {
         context.save();
@@ -17,6 +21,12 @@ function Player () {
             context.translate(this.x, this.y);
             context.fillRect((-this.width/2), (-this.height/2), this.width, this.height);
         context.restore();
+    }
+
+    this.move = function() 
+    {
+        this.x += this.vx;
+        this.y += this.vy;
     }
 
 }
