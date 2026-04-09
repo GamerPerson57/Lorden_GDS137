@@ -4,13 +4,22 @@ canvas = document.getElementById("canvas");
 context = canvas.getContext("2d");
 
 ball = new Ball();
-ball.vx = 5;
-ball.vy = 5;
+ball.vx = 0;
+ball.vy = 0;
 
 timer = setInterval(animate, interval);
 
 function animate() 
 {
+    
+    if (d) {
+        ball.x += 4;
+    }
+
+    if (a) {
+        ball.x -= 4;
+    }
+    
     context.clearRect(0, 0, canvas.width, canvas.height);
     ball.move();
     if (ball.x + ball.radius > canvas.width) {
