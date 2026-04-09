@@ -5,7 +5,7 @@ context = canvas.getContext("2d");
 
 ball = new Ball();
 ball.vx = 5;
-ball.vy = 0;
+ball.vy = 5;
 
 timer = setInterval(animate, interval);
 
@@ -22,14 +22,14 @@ function animate()
         ball.vx *= -1;
     }
 
-    // if (ball.y + ball.radius > canvas.height) {
-    //     ball.y = canvas.height - ball.radius;
-    //     ball.vy *= -1;
-    // }
-    // if (ball.y - ball.radius < 0) {
-    //     ball.y = ball.radius;
-    //     ball.vy *= -1;
-    // }
+    if (ball.y + ball.radius > canvas.height) {
+        ball.y = canvas.height - ball.radius;
+        ball.vy *= -1;
+    }
+    if (ball.y - ball.radius < 0) {
+        ball.y = ball.radius;
+        ball.vy *= -1;
+    }
 
     ball.draw();
 }
