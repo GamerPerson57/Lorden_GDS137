@@ -5,14 +5,14 @@ context = canvas.getContext("2d");
 
 ball = new Ball();
 ball.vx = 5;
-ball.vy = 10;
+ball.vy = 0;
 
 timer = setInterval(animate, interval);
 
 function animate() 
 {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    // ball.move();
+    ball.move();
     // if (ball.x + ball.radius > canvas.width) {
     //     ball.x = canvas.width - ball.radius;
     //     ball.vx *= -1;
