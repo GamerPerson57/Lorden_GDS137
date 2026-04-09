@@ -13,14 +13,14 @@ function animate()
 {
     context.clearRect(0, 0, canvas.width, canvas.height);
     ball.move();
-    // if (ball.x + ball.radius > canvas.width) {
-    //     ball.x = canvas.width - ball.radius;
-    //     ball.vx *= -1;
-    // }
-    // if (ball.x - ball.radius < 0) {
-    //     ball.x = ball.radius;
-    //     ball.vx *= -1;
-    // }
+    if (ball.x + ball.radius > canvas.width) {
+        ball.x = canvas.width - ball.radius;
+        ball.vx *= -1;
+    }
+    if (ball.x - ball.radius < 0) {
+        ball.x = ball.radius;
+        ball.vx *= -1;
+    }
 
     // if (ball.y + ball.radius > canvas.height) {
     //     ball.y = canvas.height - ball.radius;
