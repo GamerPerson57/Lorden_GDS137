@@ -1,3 +1,8 @@
+
+function randomColor() {
+    return "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+}
+
 function Ball () {
     // player's starting point
     this.x = canvas.width / 2;
@@ -12,14 +17,17 @@ function Ball () {
     this.vx = 0;
     this.vy = 0;
 
+    // player color
+    this.color = randomColor();
+
     this.draw = function() 
     {
         context.save();
             context.beginPath();
             context.arc(this.x, this.y, this.radius, 0, 360*Math.PI/180, true);
-            context.fillStyle = "red";
+            context.fillStyle = this.color;
             context.fill();
-             context.closePath();
+            context.closePath();
         context.restore();
     }
 
