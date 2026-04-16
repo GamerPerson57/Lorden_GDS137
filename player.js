@@ -48,6 +48,14 @@ function GameObject(x,y,h,w,color)
     this.vx = 0;
     this.vy = 0;
 
+    // Set up physics
+    this.force = 1; // force
+    this.ax = 1;  // horizontal acceleration
+    this.ay = 1; // veritcal acceleration
+
+    //jump speed
+    this.jumpSpeed = 0;
+
     this.drawCircle = function()
     {
         context.beginPath();
