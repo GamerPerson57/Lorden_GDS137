@@ -13,6 +13,12 @@ player.vx = 0;
 player.vy = 0;
 player.jumpSpeed = -20;
 
+platform0 = new GameObject();
+platform0.width = 400;
+platform0.y = player.y + player.height/2 + platform0.height/2;
+platform0.color = "#33d801";
+
+
 // npc1 = new GameObject(300, canvas.height/2, 100, 100, "#00ff15");
 // npc2 = new GameObject(700, canvas.height/2, 100, 100, "#0059ff");
 // npc3 = new GameObject(900, canvas.height/2, 100, 100, "#ff0000");
@@ -23,6 +29,12 @@ timer = setInterval(animate, interval);
 function animate()
 {
     context.clearRect(0, 0, canvas.width, canvas.height);
+    
+    if (w && player.canJump) {
+        player.canJump = false;
+        player.vy += -20;
+    }
+
 
     // if(d)
     // {
@@ -112,6 +124,8 @@ function animate()
 
 
     player.drawCircle();
+    player.drawDebug();
+    platform0.drawRect();
     // npc1.drawCircle();
     // npc2.drawCircle();
     // npc3.drawCircle();
@@ -143,15 +157,17 @@ function animate()
         if (player.y > canvas.height - player.height/2) {
             player.y = canvas.height - player.height/2;
             player.vy = 0;
-            doJump();
+            player.canJump = true;
+
+            // doJump();
         }
     }
 
-    function doJump () {
-        if (w) {
-            player.vy = player.jumpSpeed;
-        }
-    }
+    // function doJump () {
+    //     if (w) {
+    //         player.vy = player.jumpSpeed;
+    //     }
+    // }
 
 }
  

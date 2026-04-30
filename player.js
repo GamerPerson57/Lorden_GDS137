@@ -18,6 +18,7 @@ function GameObject(x,y,h,w,color)
         this.height = 100
     else
         this.height = h;
+    
     this.radius = 50;
 
     // set players color
@@ -27,22 +28,46 @@ function GameObject(x,y,h,w,color)
         this.color = color;
 
     //Set up bounding box
-    this.left = function()
-    {
-        return this.x - this.width/2;
+    // this.left = function()
+    // {
+    //     return this.x - this.width/2;
+    // }
+    // this.right = function()
+    // {
+    //     return this.x + this.width/2;
+    // }
+    // this.top = function()
+    // {
+    //     return this.y - this.height/2;
+    // }
+    // this.bottom = function()
+    // {
+    //     return this.y + this.height/2;
+    // }
+
+
+    //New Collision
+    this.left = function() {
+        return {x: this.x - this.width/2, y:this.y}
     }
-    this.right = function()
-    {
-        return this.x + this.width/2;
+
+    this.right = function() {
+        return {x: this.x + this.width/2, y:this.y}
     }
-    this.top = function()
-    {
-        return this.y - this.height/2;
+
+    this.top = function() {
+        return {x: this.x, y:this.y - this.height/2}
     }
-    this.bottom = function()
-    {
-        return this.y + this.height/2;
+
+    this.bottom = function() {
+        return {x: this.x, y:this.y + this.height/2}
     }
+
+    this.canJump = false;
+    this.prevX = this.x;
+
+
+
 
     // set up player's velocity
     this.vx = 0;
@@ -66,6 +91,26 @@ function GameObject(x,y,h,w,color)
         context.restore();
     }
 
+    this.drawRect = function() 
+    {
+        context.beginPath();
+        context.fillRect(this.x, this.y, this.width, this.height);
+        context.stroke();
+
+    }
+
+    this.drawDebug = function() 
+    {
+        var size = 10;
+        context.save();
+            context.fillRect(this.x-size/2, this.y-size/2, size, size);
+            context.fillRect(this.left().x-size/2, this.left().y-size/2, size, size);
+            context.fillRect(this.right().x-size/2, this.right().y-size/2, size, size);
+            context.fillRect(this.top().x-size/2, this.top().y-size/2, size, size);
+            context.fillRect(this.bottom().x-size/2, this.bottom().y-size/2, size, size);
+        context.restore();
+    }
+
     this.move = function()
     {
         this.x += this.vx;
@@ -75,15 +120,26 @@ function GameObject(x,y,h,w,color)
     this.collisionCheck = function(obj)
     {
         if(
-        this.left() < obj.right() &&
-        this.right() > obj.left() &&
-        this.top() < obj.bottom() &&
-        this.bottom() > obj.top()
+            this.left() < obj.right() &&
+            this.right() > obj.left() &&
+            this.top() < obj.bottom() &&
+            this.bottom() > obj.top()
         )
         {
             return true;
         }
         return false;
+    }
+
+    this.hitTestPoint = function() {
+        if (obj.x >= this.left().x && 
+            obj.x <= this.right().x && 
+            obj.y >= this.top().y && 
+            obj.y <= this.bottom().y) 
+            {
+                return true;
+            }
+            return false;
     }
 }
 
