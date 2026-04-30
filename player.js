@@ -94,7 +94,8 @@ function GameObject(x,y,h,w,color)
     this.drawRect = function() 
     {
         context.beginPath();
-        context.fillRect(this.x, this.y, this.width, this.height);
+        context.fillStyle = this.color;
+        context.fillRect(this.x - this.width/2, this.y - this.height/2, this.width, this.height);
         context.stroke();
 
     }
@@ -131,7 +132,7 @@ function GameObject(x,y,h,w,color)
         return false;
     }
 
-    this.hitTestPoint = function() {
+    this.hitTestPoint = function(obj) {
         if (obj.x >= this.left().x && 
             obj.x <= this.right().x && 
             obj.y >= this.top().y && 

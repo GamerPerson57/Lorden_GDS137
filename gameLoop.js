@@ -1,4 +1,4 @@
-var canvas, context, player, timer, interval = 1000/60;
+var canvas, context, player, platform0, platform1, timer, interval = 1000/60;
 var frictionX = 0.8;
 var frictionY = 0.8;
 var gravity = 1;
@@ -16,8 +16,16 @@ player.jumpSpeed = -20;
 platform0 = new GameObject();
 platform0.width = 400;
 platform0.y = player.y + player.height/2 + platform0.height/2;
-platform0.color = "#33d801";
+platform0.x = 200;
+platform0.y = 500;
+platform0.color = "#d400ff";
 
+platform1 = new GameObject();
+platform1.width = 400;
+platform1.y = player.y + player.height/2 + platform1.height/2;
+platform1.x = 800;
+platform1.y = 500;
+platform1.color = "#33d801";
 
 // npc1 = new GameObject(300, canvas.height/2, 100, 100, "#00ff15");
 // npc2 = new GameObject(700, canvas.height/2, 100, 100, "#0059ff");
@@ -33,6 +41,34 @@ function animate()
     if (w && player.canJump) {
         player.canJump = false;
         player.vy += -20;
+    }
+
+    while (platform0.hitTestPoint(player.bottom()) && player.vy >= 0) {
+        player.y--;
+        player.vy = 0;
+        player.canJump = true;
+    }
+
+    while (platform0.hitTestPoint(player.left()) && player.vx <= 0) {
+        player.x++;
+        player.vx = 0;
+    
+    }
+
+    while (platform0.hitTestPoint(player.right()) && player.vx >= 0) {
+        player.x--;
+        player.vx = 0;
+    }
+
+    while (platform0.hitTestPoint(player.top()) && player.vy <= 0) {
+        player.y++;
+        player.vy = 0;
+    }
+
+    while(platform1.hitTestPoint(player.bottom()) && player.vy >= 0) {
+        player.y--;
+        player.vy = 0;
+        player.canJump = true;
     }
 
 
@@ -126,6 +162,7 @@ function animate()
     player.drawCircle();
     player.drawDebug();
     platform0.drawRect();
+    platform1.drawRect();
     // npc1.drawCircle();
     // npc2.drawCircle();
     // npc3.drawCircle();
